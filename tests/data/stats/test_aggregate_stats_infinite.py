@@ -4,7 +4,11 @@ from mockito import mock, when, verify
 from tdigest import TDigest
 
 
-# def test_aggregate_stats_infinite_stddev():
+def test_aggregate_stats_infinite_stddev():
+    stddev = StdDev()
+    stddev.register_value(1)
+    assert np.isclose(stddev.register_value(2), 0.5)
+    assert np.isclose(stddev.register_value(3), 1)
 
 
 def test_aggregate_stats_infinite_median():
