@@ -20,6 +20,6 @@ class TimeBasedBuffer:
     def register_value(self, tuple):
         """tuple: (date_time, value)"""
         bisect.insort(self.buffer, tuple)
-        while self.buffer[0][0]-self.buffer[-1][0] > self.time_window:
+        while self.buffer[-1][0]-self.buffer[0][0] > self.time_window:
             self.buffer.pop(0)
         return [ x[1] for x in self.buffer]
