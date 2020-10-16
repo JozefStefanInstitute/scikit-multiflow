@@ -3,7 +3,7 @@ from skmultiflow.data.buffer import QuantityBasedBuffer
 import numpy as np
 
 
-def test_aggregate_stddev():
+def test_aggregate_stats_buffered_stddev():
     buffer = QuantityBasedBuffer(5)
     stddev = StdDev(buffer)
     values = [1, 1.1, 2, 3, 4, 5, -1.5, 10]
@@ -13,7 +13,7 @@ def test_aggregate_stddev():
         assert np.isclose(stddev.register_value(values[i]), np.std(np.array(buf[-5:])))
 
 
-def test_aggregate_median():
+def test_aggregate_stats_buffered_median():
     buffer = QuantityBasedBuffer(5)
     median = Median(buffer)
     values = [1, 2, 3, 4, 5, 4]
@@ -22,7 +22,7 @@ def test_aggregate_median():
         assert np.isclose(median.register_value(values[i]), correct_results[i])
 
 
-def test_aggregate_mean():
+def test_aggregate_stats_buffered_mean():
     buffer = QuantityBasedBuffer(5)
     mean = Mean(buffer)
     values = [1, 2, 3, 4, 5, -1.5]
