@@ -10,10 +10,8 @@ class SixSigma ():
      Attributes:
          time_window : type int (default = 2)
                     'window size -> number of samples used for calculating the mean and standard deviation'
-         buffer : type array
-                'time_window samples used for calculating the mean and standard deviation (type : array)'
 
-        Example shown in test_six_sigma.py
+    Example shown in test_six_sigma.py
     '''
 
 
