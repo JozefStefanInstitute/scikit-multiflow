@@ -1,10 +1,21 @@
-# using six sigma to determine the standard deviation of data
-
-#import statistics as stat
 import numpy as np
-import matplotlib.pyplot as plt
+
 
 class SixSigma ():
+
+    '''Implementation of SixSigma method for anomaly detection.
+    Six Sigma uses three standard deviations below the mean and three standard deviations
+     above the mean to predict anomalies.
+
+     Attributes:
+         time_window : type int (default = 2)
+                    'window size -> number of samples used for calculating the mean and standard deviation'
+         buffer : type array
+                'time_window samples used for calculating the mean and standard deviation (type : array)'
+
+        Example shown in test_six_sigma.py
+    '''
+
 
     def __init__(self,time_window=2):
 
@@ -13,14 +24,17 @@ class SixSigma ():
 
 
     def fit (self,X,y):
+
+        '''fit the model. Adjust buffer to obtain only the last time_window number of samples'''
+
         self.buffer.append(X)
         self.buffer = self.buffer[-self.time_window:]
-        #print(buffer)
 
-    def predict (self,X,element):
+    def predict (self,X):
+
+        '''predict class for passed data.  '''
 
         if len(self.buffer) < self.time_window:
-            print(f'element {element} y_pred None')
             return None
         else:
             j = 0
@@ -32,50 +46,9 @@ class SixSigma ():
                     i += 1
                 average = np.mean(feature_array)
                 sigma = np.std(feature_array)
-                print(f'element {element}')
-                print(f'array {feature_array}')
-                print(f'mean {average}')
-                print(f' sigma {sigma}')
-                if abs(X[j]) > abs(average) + 3*abs(sigma):
-                    prediction = 1
-                    print(f'y_pred {prediction}')
-                    j+=1
+                prediction = int(abs(X[j]) > abs(average) + 3 * abs(sigma))
+                if prediction == 1:
                     break
-                    #return 1
-                else:
-                    prediction = 0
-                    print(f'y_pred {prediction}')
-                    j += 1
+                j+=1
         return prediction
 
-
-
-
-        #print(X)
-        #print(buffer)
-        #for element in X:
-           # for column in buffer:
-       # average = np.mean(buffer)
-        #sigma = np.std(buffer)
-
-
-
-
-
-    #print(my_array1)
-'''c = []
-b = []
-i = 0
-j = 0
-while i < len(buffer):
-    b.append(buffer[i][0])
-    i+=1
-print(b)
-while j < len(b):
-    c.append(b[j][0])
-    j+=1
-print(c)
-#plt.show()
-
-    #b = [10,14,24,2,16,12,30]
-    #print(stat.pstdev(b))'''
